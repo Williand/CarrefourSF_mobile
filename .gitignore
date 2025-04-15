@@ -110,9 +110,7 @@ fabric.properties
 # Environments
 *.idea/
 *.venv
-env/
 venv/
-ENV/
 env.bak/
 venv.bak/
 log.html

@@ -1,0 +1,5 @@
+*** Settings ***
+
+*** Variables ***
+
+${PLATFORM}     android
