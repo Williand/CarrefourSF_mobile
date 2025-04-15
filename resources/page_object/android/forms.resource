@@ -1,10 +1,11 @@
 *** Settings ***
 Library    AppiumLibrary
+Resource    ./home.resource
 
 *** Keywords ***
 
 Dado que o usuário está na tela de forms
-    Wait Until Page Contains    Support
+    Home validation
     Click Element    //android.view.View[@content-desc="Forms"]
     Wait Until Page Contains    Form components
 Quando o usuário escreve "Ótimo app, parabéns!" no campo Input field:

@@ -8,7 +8,7 @@ Test Teardown    End Session
 
 *** Test Cases ***
 
-Cenário 07: Validação de Form
+Cenario_07_Validação_de_Form
     Dado que o usuário está na tela de forms
     Quando o usuário escreve "Ótimo app, parabéns!" no campo Input field:
     E o usuário clica no botão de switch

@@ -8,13 +8,13 @@ Test Teardown    End Session
 
 *** Test Cases ***
 
-Cenário 08: Acessar menu de API da página Webview
+Cenario_08_Acessar_menu_de_API_da_pagina_Webview
     Dado que o usuário está na tela de Webview
     Quando o usuário clica no menu hamburguer
     E seleciona a opção API
     Então deve ser redirecionado para a pagina com a documentação da API
 
-Cenário 09: Acessar Protocols da página Webview
+Cenario_09_Acessar_Protocols_da_página_Webview
     Dado que o usuário está na tela de Webview
     Quando o usuário clica no menu hamburguer
     E seleciona a opção API

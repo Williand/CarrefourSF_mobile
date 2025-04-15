@@ -1,10 +1,11 @@
 *** Settings ***
 Library    AppiumLibrary
+Resource    ./home.resource
 
 *** Keywords ***
 
 Dado que o usuário está na tela de swipe
-    Wait Until Page Contains    Support
+    Home validation
     Click Element    xpath=//android.view.View[@content-desc="Swipe"]
     Wait Until Page Contains    Swipe horizontal
 Quando o usuário clica para fazer swipe para a esquerda na tela

@@ -1,10 +1,11 @@
 *** Settings ***
 Library    AppiumLibrary
+Resource    ./home.resource
 
 *** Keywords ***
 
 Dado que o usuário está na tela de Webview
-    Wait Until Page Contains    Support
+    Home validation
     Click Element    xpath=//android.view.View[@content-desc="Webview"]
     Wait Until Page Contains Element    xpath=//android.view.View[@text="WebdriverIO"]    timeout=10s
 Quando o usuário clica no menu hamburguer

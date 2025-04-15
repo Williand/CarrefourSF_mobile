@@ -1,10 +1,12 @@
 *** Settings ***
 
 Library    AppiumLibrary
+Library    AllureLibrary
 
 *** Keywords ***
 
 Start Session
+    Sleep    0.5
     Open Application    http://192.168.0.65:4723
     ...	                platformName=Android
     ...	                platformVersion=7.0
@@ -15,5 +17,7 @@ Start Session
     ...	                autoGrantPermissions=true
 
 End Session
-    Sleep    3
-    Close Application
+    Run Keyword If    '${TEST STATUS}' == 'FAIL'    Log    Test falhou, capturando screenshot...
+    ${file_path}    Set Variable    ${OUTPUT DIR}//results//${TEST NAME}.png
+    Capture Page Screenshot    ${file_path}
+    Attach File    ${file_path}    name=Falha - Screenshot    attachment_type=PNG

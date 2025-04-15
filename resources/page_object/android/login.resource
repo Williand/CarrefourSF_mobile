@@ -1,10 +1,11 @@
 *** Settings ***
 Library    AppiumLibrary
+Resource    ./home.resource
 
 *** Keywords ***
 
 Dado que o aplicativo está aberto na tela de cadastro
-    Wait Until Page Contains    Support
+    Home validation
     Click Element    xpath=//android.view.View[@content-desc="Login"]
     Wait Until Page Contains    Login / Sign up Form
     Click Element    xpath=//android.widget.TextView[@text="Sign up"]

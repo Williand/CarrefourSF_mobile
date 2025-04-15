@@ -1,10 +1,11 @@
 *** Settings ***
-Library    AppiumLibrary
+Library     AppiumLibrary
+Resource    ./home.resource
 
 *** Keywords ***
 
 Dado que o usuário está na tela de Drag
-    Wait Until Page Contains    Support
+    Home validation
     Click Element    xpath=//android.view.View[@content-desc="Drag"]
     Wait Until Page Contains    Drag and Drop
 Quando o usuário completa o Drag and Drop
