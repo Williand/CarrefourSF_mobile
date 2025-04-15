@@ -33,6 +33,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    
+    - name: Instalar Appium
+      run: |
+        npm install -g appium
+
+    - name: Iniciar Appium Server
+      run: |
+        appium --base-path /wd/hub &
+        sleep 10  # espera o servidor inicializar
 
     - name: Install Allure CLI
       run: npm install -g allure-commandline

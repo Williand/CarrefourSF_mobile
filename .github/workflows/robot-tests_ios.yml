@@ -1,0 +1,59 @@
+name: Execução de Testes iOS Automatizados
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  robot-tests-ios:
+    runs-on: macos-latest
+    permissions: write-all
+
+    env:
+      ALLURE_RESULTS_DIR: allure_results
+      ALLURE_REPORT_DIR: allure_report
+      PLATFORM: ios
+
+    steps:
+    - name: Checkout do Código
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Instalar Dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Allure CLI
+      run: npm install -g allure-commandline
+
+    - name: Iniciar Appium Server
+      run: |
+        npm install -g appium
+        appium --base-path /wd/hub &
+        sleep 10
+
+    - name: Instalar WebDriverAgent e configurar simulador ios
+      run: |
+        xcrun simctl list devices
+        xcrun simctl boot "iPhone 14 Pro" || true
+        xcrun simctl install booted app/ios.simulator.wdio.native.app.v1.0.8/Payload/wdiodemoapp.app
+
+    - name: Executar Testes com Robot Framework ios
+      run: |
+        robot --variable PLATFORM:ios --listener "allure_robotframework;allure_results" tests/
+
+    - name: Gerar Relatório Allure
+      run: |
+        allure generate allure_results -o allure_report --clean
