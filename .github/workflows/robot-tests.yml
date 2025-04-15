@@ -44,15 +44,3 @@ jobs:
     - name: Generate Allure report
       run: |
           allure generate allure_results -o allure_report --clean
-
-    - name: Upload Allure results
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-results
-        path: allure_results
-      
-    - name: Upload Allure report
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-report
-        path: allure_report
