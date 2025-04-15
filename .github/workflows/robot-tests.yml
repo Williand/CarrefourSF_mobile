@@ -1,0 +1,58 @@
+name: Execução de Testes Automatizados
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  robot-tests:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      ALLURE_RESULTS_DIR: allure_results
+      ALLURE_REPORT_DIR: allure_report
+
+    steps:
+    - name: Checkout do Código
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Instalar Dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Upload Allure results
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-results
+        path: allure_results
+
+    - name: Install Allure CLI
+      run: npm install -g allure-commandline
+
+    - name: Executar Testes com Robot Framework
+      run: |
+        robot --listener "allure_robotframework;allure_results" tests/
+
+    - name: Generate Allure report
+      run: |
+          allure generate allure_results -o allure_report --clean
+
+    - name: Upload Allure report
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-report
+        path: allure_report
